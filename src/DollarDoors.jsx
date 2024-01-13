@@ -63,9 +63,8 @@ export default function DollarDoors(props) {
     function resetDoors() {
         setDoorsOpen(false)
         setPower(0)
-        if (closeDoorTimer == null) {
-            setCloseDoorTimer(setInterval(decrementPower, closeFrequency))
-        }
+        clearInterval(closeDoorTimer)
+        setCloseDoorTimer(setInterval(decrementPower, closeFrequency))
     }
 
     useEffect(() =>  {
@@ -78,9 +77,7 @@ export default function DollarDoors(props) {
         const handleStand = (e) => handleMousePress(e,'stand')
         document.addEventListener('mouseup', handleStand)
 
-        if (closeDoorTimer == null) {
-            setCloseDoorTimer(setInterval(decrementPower, 100))
-        }
+        resetDoors()
 
         return () => {
             clearInterval(closeDoorTimer)
@@ -95,8 +92,8 @@ export default function DollarDoors(props) {
             <div id='power-bar-container'>
                 <div id='power-bar' />
             </div>
-            <img id='left' src='/img/left_door.png' />
-            <img id='right' src='/img/right_door.png' />
+            <img id='left' src='img/left_door.png' />
+            <img id='right' src='img/right_door.png' />
             <Thruster thrusting={thrusting} open={doorsOpen} power={power} />
             {/* <h1 style={{ position: 'absolute', left: 20, top: 20 }}>power: {power}</h1> */}
         </_DollarDoors>
@@ -118,12 +115,12 @@ const _DollarDoors = styled.div`
     }
 
     #left {
-        right: calc(50vw + ${props => Math.sqrt(props.power)}px);
+        right: calc(50vw + ${props => props.power}px);
         transform: translateX(${props => props.open ? '-50vw' : '0px'});
     }
 
     #right {
-        left: calc(50vw + ${props => Math.sqrt(props.power)}px);
+        left: calc(50vw + ${props => props.power}px);
         transform: translateX(${props => props.open ? '50vw' : '0px'});
     }
 
