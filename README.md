@@ -1,5 +1,3 @@
-# @dollarhumpstores merch site
-
-run with `npm start`
+# @humpdollarstores merch site
 
 view the current build [here](https://benweberj.github.io/hump/)
